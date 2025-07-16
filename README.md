@@ -34,31 +34,29 @@ Aplicação desenvolvida em Java Spring Boot com um serviço de envio de e-mails
 
  - Git Bash ou terminal compatível com Bash (no Windows)
 
-### ⚠️ Configuração Inicial Obrigatória
-
-Antes de executar o script de instalação ou instalar com o Helm, você deve editar os seguintes arquivos para inserir **suas credenciais pessoais**:
-
-### 🔐 /templates/email-secret.yaml`
-
-Altere os campos abaixo para o seu próprio e-mail e senha de app do Gmail:
-
-```yaml
-SPRING_MAIL_USERNAME: seu-email@gmail.com
-SPRING_MAIL_PASSWORD: sua-senha-de-aplicativo
-
-### 🔐 /devops-app/values.yaml
-
-Altere o campo abaixo para o sua propria senha do banco de dados MySQL (campo mysql.auth.rootPassword
-
-```yaml
-rootPassword: sua-senha-mysql
-
 ### 2. Clonar o repositório
 
 git clone [https://github.com/seu-usuario/devops-app.git](https://github.com/natycristina/Trabalho2-devops.git)
 
 cd devops-app
 
+### ⚠️ Configuração Inicial Obrigatória
+
+Antes de executar o script de instalação ou instalar com o Helm, você deve editar os seguintes arquivos para inserir **suas credenciais pessoais**:
+
+### 🔐 /devops-app/templates/email-secret.yaml`
+
+Altere os campos abaixo para o seu próprio e-mail e senha de app do Gmail:
+
+- SPRING_MAIL_USERNAME: seu-email@gmail.com
+- SPRING_MAIL_PASSWORD: sua-senha-de-aplicativo
+
+### 🔐 /devops-app/values.yaml
+
+Altere o campo abaixo para o sua propria senha do banco de dados MySQL (campo mysql.auth.rootPassword
+
+- rootPassword: sua-senha-mysql
+  
 ### 3. Executar o script de build
 
 chmod +x scripts/build.sh
