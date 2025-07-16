@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-app
+  template:
+    metadata:
+      labels:
+        app: spring-app
+    spec:
+      containers:
+        - name: spring-app
+          image: "{{ .Values.springApp.image.repository }}:{{ .Values.springApp.image.tag }}"
+          imagePullPolicy: {{ .Values.springApp.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.springApp.service.port }}
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql-service:3306/{{ .Values.mysql.database }}?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+            - name: SPRING_DATASOURCE_USERNAME
+              value: root
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "{{ .Values.mysql.rootPassword }}"

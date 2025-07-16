@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: spring_app
+    ports:
+      - "8080:8080" 
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/EmpresaVaga?createDatabaseIfNotExist=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: seu_username_aqui
+      SPRING_DATASOURCE_PASSWORD: sua_senha_aqui
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create-drop
+      SPRING_JPA_SHOW_SQL: true
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+    depends_on:
+      db:
+        condition: service_healthy
+      email-service:
+        condition: service_started
+    networks:
+      - devops-net
+    restart: on-failure
+
+  db:
+    build: ./mysql
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: sua_senha_aqui
+      MYSQL_DATABASE: EmpresaVaga
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - devops-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  email-service:
+    build: ./email-service
+    container_name: email_service
+    environment:
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 465
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: true
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_SSL_ENABLE: true
+      # IMPORTANTE: Substitua por suas credenciais reais
+      SPRING_MAIL_USERNAME: seu_email_que_gostaria_de_receber_o_gmail
+      SPRING_MAIL_PASSWORD: sua_senha_do_gmail_para_app
+    networks:
+      - devops-net
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/api/email/health"] # O healthcheck continuará funcionando internamente
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  devops-net:
+    driver: bridge
+
+volumes:
+  mysql_data:
