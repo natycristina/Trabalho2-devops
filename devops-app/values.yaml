@@ -1,0 +1,27 @@
+springApp:
+  image:
+    repository: spring-app
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8080
+
+emailService:
+  image:
+    repository: email-service
+    tag: latest
+    pullPolicy: IfNotPresent
+  service:
+    port: 8081
+
+mysql:
+  image:
+    repository: mysql
+    tag: "8.0"
+    pullPolicy: IfNotPresent
+  rootPassword: sua-senha-do-banco
+  database: EmpresaVaga
+  storage: 1Gi
+  service:
+    port: 3306
