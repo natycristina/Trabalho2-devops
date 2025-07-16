@@ -23,6 +23,7 @@ Aplicação desenvolvida em Java Spring Boot com um serviço de envio de e-mails
 - Secrets (para variáveis sensíveis)
 
 ## 🚀 Como executar localmente
+
 ### 1. Pré-requisitos
  
  - Docker instalado
@@ -32,6 +33,25 @@ Aplicação desenvolvida em Java Spring Boot com um serviço de envio de e-mails
  - Helm instalado
 
  - Git Bash ou terminal compatível com Bash (no Windows)
+
+### ⚠️ Configuração Inicial Obrigatória
+
+Antes de executar o script de instalação ou instalar com o Helm, você deve editar os seguintes arquivos para inserir **suas credenciais pessoais**:
+
+### 🔐 /templates/email-secret.yaml`
+
+Altere os campos abaixo para o seu próprio e-mail e senha de app do Gmail:
+
+```yaml
+SPRING_MAIL_USERNAME: seu-email@gmail.com
+SPRING_MAIL_PASSWORD: sua-senha-de-aplicativo
+
+### 🔐 /devops-app/values.yaml
+
+Altere o campo abaixo para o sua propria senha do banco de dados MySQL (campo mysql.auth.rootPassword
+
+```yaml
+rootPassword: sua-senha-mysql
 
 ### 2. Clonar o repositório
 
