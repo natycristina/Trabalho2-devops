@@ -40,7 +40,7 @@ git clone [https://github.com/seu-usuario/devops-app.git](https://github.com/nat
 
 cd devops-app
 
-### 🔧 2. Configuração Inicial Obrigatória
+### 🔧 3. Configuração Inicial Obrigatória
 
 Antes de executar o script de instalação ou instalar com o Helm, você deve editar os seguintes arquivos para inserir **suas credenciais pessoais**:
 
@@ -57,7 +57,7 @@ Altere o campo abaixo para o sua propria senha do banco de dados MySQL (campo my
 
 - rootPassword: sua-senha-mysql
   
-### 3. Executar o script de build
+### 💡 Opção 1:  Executar o script de build
 
 chmod +x scripts/build.sh
 
@@ -79,9 +79,9 @@ Siga os passos abaixo caso queira realizar tudo manualmente:
 
 - a) Iniciar o Minikube
 - 
-bash'
+```bash
 minikube start
-'
+
 - b) Fazer build das imagens Docker
 
 Certifique-se de estar no diretório correto do projeto:
