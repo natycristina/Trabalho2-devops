@@ -1,22 +1,26 @@
 #!/bin/bash
 
-# Inicia o Minikube
+set -e  # Para o script se algum comando falhar
+
+echo "🔧 Iniciando Minikube..."
 minikube start
 
-# Build das imagens
-docker build -t spring-app:latest .
-docker build -t email-service:latest ./email-service
-docker build -t mysql:custom ./mysql
+echo "🐳 Construindo imagens Docker..."
 
-# Load das imagens no Minikube
+docker build -t email-service:latest ../email-service
+docker build -t custom-mysql:latest ../mysql
+docker build -t spring-app:latest ..
+
+echo "📦 Carregando imagens no Minikube..."
 minikube image load spring-app:latest
 minikube image load email-service:latest
 minikube image load mysql:custom
 
-# Instala com Helm
-helm upgrade --install devops-app ./devops-app
+echo "🚀 Instalando aplicação com Helm..."
+helm install devops-app ./devops-app --wait
 
-# Verifica os pods
+echo "✅ Aplicação implantada! Verificando pods..."
 kubectl get pods
 
-echo "Abra um novo terminal e execute: minikube tunnel"
+echo "🌐 Para acessar os serviços (LoadBalancer), execute em um novo terminal:"
+echo "👉 minikube tunnel"
