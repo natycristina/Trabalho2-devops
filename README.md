@@ -40,11 +40,11 @@ git clone [https://github.com/seu-usuario/devops-app.git](https://github.com/nat
 
 cd devops-app
 
-### ⚠️ Configuração Inicial Obrigatória
+### 🔧 2. Configuração Inicial Obrigatória
 
 Antes de executar o script de instalação ou instalar com o Helm, você deve editar os seguintes arquivos para inserir **suas credenciais pessoais**:
 
-### 🔐 /devops-app/templates/email-secret.yaml`
+### ✉️ devops-app/templates/email-secret.yaml
 
 Altere os campos abaixo para o seu próprio e-mail e senha de app do Gmail:
 
@@ -72,6 +72,58 @@ chmod +x scripts/build.sh
 - Inicia o cluster
 
 - Instala o Helm Chart
+
+### 💡 Opção 2: Execução Manual (passo a passo)
+
+Siga os passos abaixo caso queira realizar tudo manualmente:
+
+- a) Iniciar o Minikube
+- 
+bash'
+minikube start
+'
+- b) Fazer build das imagens Docker
+
+Certifique-se de estar no diretório correto do projeto:
+
+bash'
+# Build do email-service (dentro da pasta email-service)
+docker build -t email-service:latest ./email-service
+
+# Build do mysql customizado (dentro da pasta mysql)
+docker build -t custom-mysql:latest ./mysql
+
+# Build da aplicação Spring Boot (Dockerfile está na raiz)
+docker build -t spring-app:latest .
+'
+
+- c) Carregar as imagens no Minikube
+  
+bash'
+minikube image load spring-app:latest
+minikube image load email-service:latest
+minikube image load custom-mysql:latest
+'
+
+- d) Instalar com Helm
+
+bash'
+helm install devops-app ./devops-app --wait
+'
+
+- e) Verificar os pods
+
+bash'
+kubectl get pods
+'
+
+- f) Executar o tunnel do Minikube
+
+Em um novo terminal:
+
+bash'
+minikube tunnel
+'
 
 ### 4. Acessar a aplicação
 Antes, adicione no seu arquivo hosts:
