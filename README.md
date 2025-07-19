@@ -86,13 +86,13 @@ minikube start
 Certifique-se de estar no diretório correto do projeto:
 
 
-# Build do email-service (dentro da pasta email-service)
+#### Build do email-service (dentro da pasta email-service)
 docker build -t email-service:latest ./email-service
 
-# Build do mysql customizado (dentro da pasta mysql)
+#### Build do mysql customizado (dentro da pasta mysql)
 docker build -t custom-mysql:latest ./mysql
 
-# Build da aplicação Spring Boot (Dockerfile está na raiz)
+##### Build da aplicação Spring Boot (Dockerfile está na raiz)
 docker build -t spring-app:latest .
 
 
