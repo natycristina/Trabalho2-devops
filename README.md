@@ -77,6 +77,11 @@ chmod +x scripts/build.sh
 
 Siga os passos abaixo caso queira realizar tudo manualmente:
 
+Certifique-se de estar no diretório correto do projeto:
+
+Exemplo(No meu caso): cd C:\Users\Nataly\Documents\Devops\Trabalho2>
+
+
 - a) Iniciar o Minikube
   
 minikube start
@@ -87,21 +92,21 @@ Certifique-se de estar no diretório correto do projeto:
 
 
 #### Build do email-service (dentro da pasta email-service)
-docker build -t email-service:latest ./email-service
+docker build -t email-service:latest ./email-service 
 
 #### Build do mysql customizado (dentro da pasta mysql)
-docker build -t custom-mysql:latest ./mysql
+docker build -t mysql:custom ./mysql 
 
 ##### Build da aplicação Spring Boot (Dockerfile está na raiz)
-docker build -t spring-app:latest .
+docker build -t spring-app:latest . 
 
 
 - c) Carregar as imagens no Minikube
   
 
-minikube image load spring-app:latest
-minikube image load email-service:latest
-minikube image load custom-mysql:latest
+minikube image load spring-app:latest 
+minikube image load email-service:latest 
+minikube image load mysql:custom 
 
 - d) Instalar com Helm
 
