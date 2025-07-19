@@ -17,7 +17,7 @@ minikube image load email-service:latest
 minikube image load mysql:custom
 
 echo "🚀 Instalando aplicação com Helm..."
-helm install devops-app ./devops-app --wait
+helm install devops-app ../devops-app --wait
 
 echo "✅ Aplicação implantada! Verificando pods..."
 kubectl get pods
